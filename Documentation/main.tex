@@ -38,7 +38,7 @@ Zilde Souto Maior Neto (zsmn)
         \textbf{\item random}
         \textbf{\item collections}
         \textbf{\item base64}
-        \textbf{\item Crypto} (Esse pacote específico deve ser instalado por meio do comando: “pip3 install pycryptodome”). A documentação desse pacote em particular pode ser encontrada em: https://pycryptodome.readthedocs.io/en/latest/index.html
+        \textbf{\item Crypto} (Esse pacote específico deve ser instalado por meio do comando: “pip3 install pycryptodome” no terminal). A documentação desse pacote em particular pode ser encontrada em: https://pycryptodome.readthedocs.io/en/latest/index.html
     \end{enumerate}
     \end{itemize} 
     
@@ -106,17 +106,53 @@ Zilde Souto Maior Neto (zsmn)
         
     \subsection{\Large Server}
         \subsubsection{\large Objetivo}
+            \begin{itemize}
+            \item A classe tem com objetivo representar o estado e o comportamento de um servidor conforme apresentado previamente na descrição do protocolo. Como descrito na seção de estrutura, o protocolo desenvolvido separa as funcionalidades do cliente e do servidor em classes distintas. Além disso, ambas as classes mencionadas são subclasses da classe "Socket" descrita acima.
+            \end{itemize}
         \subsubsection{\large Atributos}
+            \begin{itemize}
+            \item Por ser uma subclasse da classe "Socket", a classe "Server"  possui todos os atributos da classe "Socket" descritos previamente. Ademais, possui os seguintes atributos específicos da própria classe "Server":
+            \item \textbf{Server.candidates:}  Esse atributo é responsável por guardar a lista com todas as opções válidas de candidatos na eleição. \texttt{Tipo: list}.
+            \item \textbf{Server.votes:} Esse atributo é responsável por contabilizar os votos de todas as opções válidas de candidatos na eleição. \texttt{tipo: dict}.
+            \end{itemize}
         \subsubsection{\large Métodos}
+            \begin{itemize}
+            \item Por ser uma subclasse da classe "Socket", a classe "Server" possui todos os métodos da classe "Socket" descritos previamente. Ademais, possui os seguintes métodos específicos da própria classe "Server":
+            \item \textbf{Server(address, port, candidates):} : Esse método é o construtor da classe. O método possui como parâmetros: \underline{address} (O endereço IP do servidor. \texttt{Tipo: str}), \underline{port} (O número de porta a ser usado pelo socket do servidor. \texttt{Tipo: str}) e \underline{candidates} (A lista de candidatos válidos para a votação. \texttt{Tipo: list}). O método retorna um objeto do \texttt{tipo: protocol.Server}.
+            \item \textbf{Server.connect():} : Esse método é responsável por criar a ligação do socket do servidor com um endereço e porta. Em seguida, ele faz com que o socket do servidor “escute” por novas conexões. O método não possui nenhum parâmetro e não retorna nada.
+            \item \textbf{Server.sendMessage(clientSocket, message):} Esse método é responsável por enviar uma mensagem a um cliente específico. O método possui como parâmetros: \underline{clientSocket} (O socket do cliente para o qual a mensagem proveniente do servidor será enviada. \texttt{Tipo: socket.socket}) e \underline{message} (A mensagem que será enviada para o socket do cliente em questão. \texttt{Tipo: bytes}). O método não retorna nada.
+            \item \textbf{Server.checkValidCandidate(candidate):}  Esse método é responsável por verificar se um candidato recebido é, de fato, uma opção válida de voto. O método possui um único parâmetro: \underline{candidate} (Um nome representando o candidato votado. \texttt{Tipo: str}). O método retorna um booleano (\texttt{tipo: bool}), indicando se a opção fornecida é válida ou não.
+            \item \textbf{Server.addVote(candidate):} Esse método é responsável por computar o voto referente a uma opção de candidato, que já foi verificada e apontada como válida. O método possui como único parâmetro: \underline{candidate} (Um nome representando o candidatovotado. \texttt{Tipo: str}). O método não retorna nada.
+            \item \textbf{Server.printVotes():} Esse método é responsável por imprimir na tela do terminal todas as opções válidas de candidatos e a quantidade respectiva dos seus votos computados até o momento da chamada do método. Esse método não possui nenhum parâmetro e não retorna nada.
+            \end{itemize}
         
     \subsection{\Large Client}
         \subsubsection{\large Objetivo}
+            \begin{itemize}
+            \item A classe tem com objetivo representar o estado e o comportamento do cliente conforme apresentado previamente na descrição do protocolo. Como descrito na seção de estrutura, o protocolo desenvolvido separa as funcionalidades do cliente e do servidor em classes distintas. Além disso, ambas as classes mencionadas são subclasses da classe "Socket" descrita anteriormente.
+            \end{itemize}
         \subsubsection{\large Atributos}
+            \begin{itemize}
+            \item Por ser uma subclasse da classe "Socket", a classe "Client" possui todos os atributos da classe "Socket" descritos previamente. No entanto, a classe "Client" não possui atributos específicos próprios dela mesma.
+            \end{itemize}
         \subsubsection{\large Métodos}
+            \begin{itemize}
+            \item Por ser uma subclasse da classe "Socket", a classe "Client" possui todos os métodos da classe "Socket" descritos previamente. Ademais, possui os seguintes métodos específicos da própria classe "Client":
+            \item \textbf{Client(address, port):} : Esse método é o construtor da classe. O método possui como parâmetros: \underline{address} (O endereço IP do servidor ao qual o cliente deve ser conectar. \texttt{Tipo: str}) e \underline{port} (O número de porta utilizado pelo socket do servidor ao qual o cliente irá se conectar. \texttt{Tipo: str}).  O método retorna um objeto do \texttt{tipo: protocol.Client}.
+            \item \textbf{Client.connect():} Esse método é responsável por criar uma conexão entre o cliente em questão e o (socket do) servidor. O método não possui nenhum parâmetro e não retorna nada.
+            \item \textbf{Client.sendMessage(message):} Esse método é responsável por enviar uma mensagem do cliente para o servidor. O método possui um único parâmetro: \underline{message} (A mensagem que será enviada do cliente para o socket do servidor. \texttt{Tipo: bytes}). O método não retorna nada.
+            \end{itemize}
         
     \subsection{\Large Protocol}
         \subsubsection{\large Objetivo}
+            \begin{itemize}
+            \item A classe tem como objetivo implementar, de forma sequencial e modularizada, as etapas do protocolo descritas na entrega anterior (etapa de Handshake, etapa de geração de chave simétrica e etapa de sessão de votação). Para isso, como será explicado adiante, existe uma divisão entre as atividades executadas pelo cliente em todas as etapas e as atividades executadas pelo servidor em todas as etapas.
+            \end{itemize}
         \subsubsection{\large Atributos}
+            \begin{itemize}
+            \item \textbf{Protocol.symmetricKey:}  Esse atributo é responsável por armazenar a chave simétrica, que será compartilhada entre a conexão individual cliente-servidor. 
+            
+            \end{itemize}
         \subsubsection{\large Métodos}
     \end{itemize}
 
