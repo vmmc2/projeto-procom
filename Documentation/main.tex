@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{titlesec}
 
-\title{Documentação Biblioteca}
+\title{\Huge \textbf{Documentação Biblioteca}}
 \author{
 Victor Miguel de Morais Costa (vmmc2) \\
 Zilde Souto Maior Neto (zsmn)
@@ -138,7 +138,7 @@ Zilde Souto Maior Neto (zsmn)
         \subsubsection{\large Métodos}
             \begin{itemize}
             \item Por ser uma subclasse da classe "Socket", a classe "Client" possui todos os métodos da classe "Socket" descritos previamente. Ademais, possui os seguintes métodos específicos da própria classe "Client":
-            \item \textbf{Client(address, port):} : Esse método é o construtor da classe. O método possui como parâmetros: \underline{address} (O endereço IP do servidor ao qual o cliente deve ser conectar. \texttt{Tipo: str}) e \underline{port} (O número de porta utilizado pelo socket do servidor ao qual o cliente irá se conectar. \texttt{Tipo: str}).  O método retorna um objeto do \texttt{tipo: protocol.Client}.
+            \item \textbf{Client(address, port):} Esse método é o construtor da classe. O método possui como parâmetros: \underline{address} (O endereço IP do servidor ao qual o cliente deve ser conectar. \texttt{Tipo: str}) e \underline{port} (O número de porta utilizado pelo socket do servidor ao qual o cliente irá se conectar. \texttt{Tipo: str}).  O método retorna um objeto do \texttt{tipo: protocol.Client}.
             \item \textbf{Client.connect():} Esse método é responsável por criar uma conexão entre o cliente em questão e o (socket do) servidor. O método não possui nenhum parâmetro e não retorna nada.
             \item \textbf{Client.sendMessage(message):} Esse método é responsável por enviar uma mensagem do cliente para o servidor. O método possui um único parâmetro: \underline{message} (A mensagem que será enviada do cliente para o socket do servidor. \texttt{Tipo: bytes}). O método não retorna nada.
             \end{itemize}
@@ -150,12 +150,14 @@ Zilde Souto Maior Neto (zsmn)
             \end{itemize}
         \subsubsection{\large Atributos}
             \begin{itemize}
-            \item \textbf{Protocol.symmetricKey:}  Esse atributo é responsável por armazenar a chave simétrica, que será compartilhada entre a conexão individual cliente-servidor. 
-            
+            \item \textbf{Protocol.symmetricKey:}  Esse atributo é responsável por armazenar a chave simétrica, que será compartilhada entre a conexão individual cliente-servidor. \texttt{Tipo: bytes}.
             \end{itemize}
         \subsubsection{\large Métodos}
+            \begin{itemize}
+             \item \textbf{Protocol():} Esse método é o construtor da classe. O método não possui nenhum parâmetro. O método retorna um objeto do \texttt{tipo: protocol.Protocol}.
+             \item \textbf{Protocol.generateRandomKey():} Esse método é responsável pela geração, de forma aleatória, da chave simétrica que será compartilhada na conexão cliente-servidor. O método não possui nenhum parâmetro e retorna um objeto do \texttt{tipo: bytes}.
+             \item \textbf{Protocol.clientProcedure(client, serverPublicKey):} Esse método é responsável por executar, de forma sequencial, todas as atividades atribuídas ao cliente nas etapas do protocolo definidas anteriormente. Ou seja, o método executa as funções do cliente nas etapas de: handshake, geração de chave simétrica e sessão de votação, respectivamente. O método possui como parâmetros: \underline{client} (O cliente que está interagindo/conectado com o servidor. \texttt{Tipo: protocol.Client}) e \underline{serverPublicKey} (A chave pública do servidor, que é assumida ser de conhecimento geral. \texttt{tipo: Crypto.PublicKey.RSA.RsaKey}). O método não retorna nada.
+             \item \textbf{Protocol.serverProcedure(server, clientSocket, clientAddress):} Esse método é responsável por executar, de forma sequencial, todas as atividades atribuídas ao servidor nas etapas do protocolo definidas anteriormente. Ou seja, o método executa as funções do servidor nas etapas de: handshake, geração de chave simétrica e sessão de votação, respectivamente. O método possui como parâmetros: \underline{server} (O servidor que está executando o seu procedimento no protocolo. \texttt{Tipo: protocol.Server}), \underline{clientSocket} (O socket do cliente com o qual o servidor em questão está conectado. \texttt{Tipo: socket.socket}) e \underline{clientAddress} (Uma tupla contendo o endereço IP do cliente e o número de porta utilizado pelo socket desse mesmo cliente ao qual o servidor está conectado. \texttt{Tipo: tuple}). O método não retorna nada.
+            \end{itemize}
     \end{itemize}
-
-\section{Conclusão}
-
 \end{document}
