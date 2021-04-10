@@ -44,12 +44,12 @@ Zilde Souto Maior Neto (zsmn)
     
 \section{Estrutura}
     \begin{itemize}
-    \item A biblioteca desenvolvida foi estruturada de forma que possui 4 classes distintas, que implementam, de forma modularizada, as características do protocolo descritas previamente. 
+    \item A biblioteca desenvolvida foi estruturada de forma que possui 5 classes distintas, que implementam, de forma modularizada, as características do protocolo descritas previamente. 
     \item As classes em questão são: \textbf{bcolors}, \textbf{Socket}, \textbf{Server}, \textbf{Client} e \textbf{Protocol}.
     \item Por questões de organização, a estrutura foi pensada de forma hierárquica, de maneira que existem superclasses e subclasses na biblioteca. A hierarquia mencionada pode ser vista abaixo:
     
     \begin{figure}[ht]
-    \centering{\includegraphics[scale=0.4]{ClassHierarchy.png}}
+    \centering{\includegraphics[scale=0.35]{ClassHierarchy.png}}
     \caption{Hierarquia da Biblioteca}
     \label{fig:diagrama}
     \end{figure}
@@ -59,18 +59,18 @@ Zilde Souto Maior Neto (zsmn)
     \subsection{\Large bcolors}
         \subsubsection{\large Objetivo}
             \begin{itemize}
-            \item A classe tem como objetivo agrupar uma série de códigos de cores e modificadores de
+            \item A classe tem como objetivo agrupar uma série de códigos de cores e de modificadores de
             texto, de forma que as mensagens geradas pela biblioteca possam ser visualizadas mais
             facilmente no terminal pelos usuários.
             \end{itemize}
         \subsubsection{\large Atributos}
             \begin{itemize}
             \item \textbf{bcolors.HEADER:} Atributo responsável por guardar o código responsável por realizar a alteração no texto presente no terminal para o formato cabeçalho/header. \texttt{Tipo: str.} 
-            \item \textbf{bcolors.OKBLUE:} Atributo responsável por guardar o código referente à cor Azul. Esse código é utilizado para emitir mensagens de sucesso pela biblioteca. \texttt{Tipo: str.}
-            \item \textbf{bcolors.OKCYAN:} Atributo responsável por guardar o código referente à cor Ciano. Esse código é utilizado para emitir mensagens de sucesso pela biblioteca. \texttt{Tipo: str.}
-            \item \textbf{bcolors.OKGREEN:} Atributo responsável por guardar o código referente à cor Verde. Esse código é utilizado para emitir mensagens de sucesso pela biblioteca. \texttt{Tipo: str.}
-            \item \textbf{bcolors.WARNING:} Atributo responsável por guardar o código utilizado quando a biblioteca emite uma mensagem de aviso/warning. \texttt{Tipo: str.}
-            \item \textbf{bcolors.FAIL:} Atributo responsável por guardar o código referente à cor Vermelho. Esse código é utilizado para emitir mensagens de erro/fail pela biblioteca. \texttt{Tipo: str.}
+            \item \textbf{bcolors.OKBLUE:} Atributo responsável por guardar o código referente à cor Azul. O atributo é utilizado para emitir mensagens de sucesso pela biblioteca. \texttt{Tipo: str.}
+            \item \textbf{bcolors.OKCYAN:} Atributo responsável por guardar o código referente à cor Ciano. O atributo é utilizado para emitir mensagens de sucesso pela biblioteca. \texttt{Tipo: str.}
+            \item \textbf{bcolors.OKGREEN:} Atributo responsável por guardar o código referente à cor Verde. O atributo é utilizado para emitir mensagens de sucesso pela biblioteca. \texttt{Tipo: str.}
+            \item \textbf{bcolors.WARNING:} Atributo responsável por guardar o código utilizado quando é preciso emitir uma mensagem de aviso/warning. \texttt{Tipo: str.}
+            \item \textbf{bcolors.FAIL:} Atributo responsável por guardar o código referente à cor Vermelho. O atributo é utilizado para emitir mensagens de erro/fail pela biblioteca. \texttt{Tipo: str.}
             \item \textbf{bcolors.ENDC:} Atributo responsável por guardar o código que indica que não serão usados outros atributos para modificar a mesma string em questão. Ele sempre é utilizado no final da string. \texttt{Tipo: str.}
             \item \textbf{bcolors.BOLD:} Atributo responsável por guardar o código responsável por realizar a alteração no texto presente no terminal para o formato negrito/bold. \texttt{Tipo: str.} 
             \item \textbf{bcolors.UNDERLINE:} Atributo responsável por guardar o código responsável por realizar a alteração no texto presente no terminal para o formato sublinhado/underline. \texttt{Tipo: str.} 
@@ -95,19 +95,19 @@ Zilde Souto Maior Neto (zsmn)
             \end{itemize}
         \subsubsection{\large Métodos}
             \begin{itemize}
-            \item \textbf{Socket(address, port):} Esse método é o construtor da classe. O método possui como parâmetros: \underline{address} (O endereço IP do hospedeiro no qual reside o socket. \texttt{Tipo: str}) e \underline{port} (O número de porta a ser usado pelo socket. \texttt{Tipo: str}). O método retorna um objeto do \texttt{tipo: protocol.Socket.}
+            \item \textbf{Socket(address, port):} Esse método é o construtor da classe. O método possui como parâmetros: \underline{address} (O endereço IP do hospedeiro no qual o socket foi criado. \texttt{Tipo: str}) e \underline{port} (O número de porta a ser usado pelo socket. \texttt{Tipo: str}). O método retorna um objeto do \texttt{tipo: protocol.Socket.}
             \item \textbf{Socket.connect():} Esse método é responsável por realizar a conexão de um hospedeiro
             com outro. Uma vez que a forma como a conexão é executada varia de cliente para servidor, essa implementação está vazia e a implementação de fato desse método está presente nas subclasses da classe “Socket”: classe “Client” e classe “Server”. O método não possui nenhum parâmetro e não retorna nada.
             \item \textbf{Socket.generateAssymetricKeys():} Esse método é responsável por gerar as chaves assimétricas (chave privada e chave pública) do socket no hospedeiro em questão. Tanto a chave privada como a chave pública são geradas com o auxílio do pacote “Crypto” mencionado anteriormente. Além disso, é executado automaticamente quando o construtor da classe “Socket” é chamado. O método não possui nenhum parâmetro e não retorna nada.
             \item \textbf{Socket.encryptMessage(message, key, encryptType="assymetric"):} Esse \newline método é responsável por realizar a encriptação de uma mensagem fornecida, dada uma chave e um modo de encriptação. Perceba que o último parâmetro é opcional e, por padrão, será usado o modo de encriptação “assymetric”. O método possui os seguintes parâmetros: \underline{message} (A mensagem a ser encriptada. \texttt{Tipo: bytearray}), \underline{key} (A chave a ser usada na encriptação. \texttt{Tipo: Crypto.PublicKey.RSA.RsaKey}) e \underline{encryptType} (O modo de encriptação a ser usado. \texttt{Tipo: str}. Esse parâmetro pode possuir apenas dois valores: “symmetric” ou “assymetric”). O método pode retornar dois tipos de objetos dependendo de qual modo de encriptação foi usado. Se foi usado o modo de encriptação “assymetric”, o método retorna um objeto \texttt{tipo: bytes.} Por outro lado, se foi usado o modo de encriptação “symmetric”, o método retorna um objeto \texttt{tipo: dict.}
-            \item \textbf{Socket.decryptMessage(message, key, encryptType="assymetric", iv=“‘‘):} Esse método é responsável por realizar a desencriptação de uma mensagem fornecida, dada uma chave, um modo de encriptação e um iv/vetor de inicialização. Perceba que os dois últimos parâmetros são opcionais e, por padrão, será utilizado o modo de encriptação “assymetric” e o iv terá o valor: “”. O método possui os seguintes parâmetros: \underline{message} (A mensagem a ser encriptada. \texttt{Tipo: bytearray}), \underline{key} (A chave a ser usada na desencriptação. \texttt{Tipo: Crypto.PublicKey.RSA.RsaKey}), \underline{encryptType} (O modo de desencriptação a ser usado. \texttt{Tipo: str}. Esse parâmetro pode possuir apenas dois valores: “symmetric” ou “assymetric”) e \underline{iv} (O vetor de inicialização a ser usado, caso seja o modo de encriptação seja “symmetric”. \texttt{Tipo: bytes}). O método retorna apenas um tipo de objeto, independente de qual modo de encriptação foi usado. O método retorna um objeto \texttt{tipo: bytes}.
+            \item \textbf{Socket.decryptMessage(message, key, encryptType="assymetric", iv=“‘‘):} Esse método é responsável por realizar a desencriptação de uma mensagem fornecida, dada uma chave, um modo de encriptação e um iv/vetor de inicialização. Perceba que os dois últimos parâmetros são opcionais e, por padrão, será utilizado o modo de encriptação “assymetric” e o iv terá o valor: “”. O método possui os seguintes parâmetros: \underline{message} (A mensagem a ser encriptada. \texttt{Tipo: bytearray}), \underline{key} (A chave a ser usada na desencriptação. \texttt{Tipo: Crypto.PublicKey.RSA.RsaKey}), \underline{encryptType} (O modo de desencriptação a ser usado. \texttt{Tipo: str}. Esse parâmetro pode possuir apenas dois valores: “symmetric” ou “assymetric”) e \underline{iv} (O vetor de inicialização a ser usado, caso o modo de encriptação seja “symmetric”. \texttt{Tipo: bytes}). O método retorna apenas um tipo de objeto, independente de qual modo de encriptação foi usado. O método retorna um objeto \texttt{tipo: bytes}.
             
             \end{itemize}
         
     \subsection{\Large Server}
         \subsubsection{\large Objetivo}
             \begin{itemize}
-            \item A classe tem com objetivo representar o estado e o comportamento de um servidor conforme apresentado previamente na descrição do protocolo. Como descrito na seção de estrutura, o protocolo desenvolvido separa as funcionalidades do cliente e do servidor em classes distintas. Além disso, ambas as classes mencionadas são subclasses da classe "Socket" descrita acima.
+            \item A classe tem com objetivo representar o estado e o comportamento de um servidor, conforme apresentado previamente na descrição do protocolo. Como descrito em seções anteriores, o protocolo desenvolvido separa as funcionalidades do cliente e do servidor em classes distintas. Além disso, ambas as classes mencionadas são subclasses da classe "Socket" descrita acima.
             \end{itemize}
         \subsubsection{\large Atributos}
             \begin{itemize}
@@ -118,18 +118,18 @@ Zilde Souto Maior Neto (zsmn)
         \subsubsection{\large Métodos}
             \begin{itemize}
             \item Por ser uma subclasse da classe "Socket", a classe "Server" possui todos os métodos da classe "Socket" descritos previamente. Ademais, possui os seguintes métodos específicos da própria classe "Server":
-            \item \textbf{Server(address, port, candidates):} : Esse método é o construtor da classe. O método possui como parâmetros: \underline{address} (O endereço IP do servidor. \texttt{Tipo: str}), \underline{port} (O número de porta a ser usado pelo socket do servidor. \texttt{Tipo: str}) e \underline{candidates} (A lista de candidatos válidos para a votação. \texttt{Tipo: list}). O método retorna um objeto do \texttt{tipo: protocol.Server}.
+            \item \textbf{Server(address, port, candidates):} : Esse método é o construtor da classe. Nesse construtor, ocorre a chamada do método responsável por gerar as chaves assimétricas (chave pública e chave privada) e, além disso, a chave pública do servidor será armazenada em um arquivo do tipo "txt" cujo nome é: "serverPublicKey.txt". O método possui como parâmetros: \underline{address} (O endereço IP do servidor. \texttt{Tipo: str}), \underline{port} (O número de porta a ser usado pelo socket do servidor. \texttt{Tipo: str}) e \underline{candidates} (A lista de opções válidas de candidatos na eleição. \texttt{Tipo: list}). O método retorna um objeto do \texttt{tipo: protocol.Server}.
             \item \textbf{Server.connect():} : Esse método é responsável por criar a ligação do socket do servidor com um endereço e porta. Em seguida, ele faz com que o socket do servidor “escute” por novas conexões. O método não possui nenhum parâmetro e não retorna nada.
             \item \textbf{Server.sendMessage(clientSocket, message):} Esse método é responsável por enviar uma mensagem a um cliente específico. O método possui como parâmetros: \underline{clientSocket} (O socket do cliente para o qual a mensagem proveniente do servidor será enviada. \texttt{Tipo: socket.socket}) e \underline{message} (A mensagem que será enviada para o socket do cliente em questão. \texttt{Tipo: bytes}). O método não retorna nada.
             \item \textbf{Server.checkValidCandidate(candidate):}  Esse método é responsável por verificar se um candidato recebido é, de fato, uma opção válida de voto. O método possui um único parâmetro: \underline{candidate} (Um nome representando o candidato votado. \texttt{Tipo: str}). O método retorna um booleano (\texttt{tipo: bool}), indicando se a opção fornecida é válida ou não.
-            \item \textbf{Server.addVote(candidate):} Esse método é responsável por computar o voto referente a uma opção de candidato, que já foi verificada e apontada como válida. O método possui como único parâmetro: \underline{candidate} (Um nome representando o candidatovotado. \texttt{Tipo: str}). O método não retorna nada.
+            \item \textbf{Server.addVote(candidate):} Esse método é responsável por computar o voto referente a uma opção de candidato, que já foi verificada e apontada como válida. O método possui como único parâmetro: \underline{candidate} (Um nome representando o candidato votado. \texttt{Tipo: str}). O método não retorna nada.
             \item \textbf{Server.printVotes():} Esse método é responsável por imprimir na tela do terminal todas as opções válidas de candidatos e a quantidade respectiva dos seus votos computados até o momento da chamada do método. Esse método não possui nenhum parâmetro e não retorna nada.
             \end{itemize}
         
     \subsection{\Large Client}
         \subsubsection{\large Objetivo}
             \begin{itemize}
-            \item A classe tem com objetivo representar o estado e o comportamento do cliente conforme apresentado previamente na descrição do protocolo. Como descrito na seção de estrutura, o protocolo desenvolvido separa as funcionalidades do cliente e do servidor em classes distintas. Além disso, ambas as classes mencionadas são subclasses da classe "Socket" descrita anteriormente.
+            \item A classe tem com objetivo representar o estado e o comportamento do cliente, conforme apresentado previamente na descrição do protocolo. Como descrito em seções anteriores, o protocolo desenvolvido separa as funcionalidades do cliente e do servidor em classes distintas. Além disso, ambas as classes mencionadas são subclasses da classe "Socket" descrita anteriormente.
             \end{itemize}
         \subsubsection{\large Atributos}
             \begin{itemize}
@@ -138,15 +138,15 @@ Zilde Souto Maior Neto (zsmn)
         \subsubsection{\large Métodos}
             \begin{itemize}
             \item Por ser uma subclasse da classe "Socket", a classe "Client" possui todos os métodos da classe "Socket" descritos previamente. Ademais, possui os seguintes métodos específicos da própria classe "Client":
-            \item \textbf{Client(address, port):} Esse método é o construtor da classe. O método possui como parâmetros: \underline{address} (O endereço IP do servidor ao qual o cliente deve ser conectar. \texttt{Tipo: str}) e \underline{port} (O número de porta utilizado pelo socket do servidor ao qual o cliente irá se conectar. \texttt{Tipo: str}).  O método retorna um objeto do \texttt{tipo: protocol.Client}.
+            \item \textbf{Client(address, port):} Esse método é o construtor da classe. O método possui como parâmetros: \underline{address} (O endereço IP do servidor ao qual o cliente deve se conectar. \texttt{Tipo: str}) e \underline{port} (O número de porta utilizado pelo socket do servidor ao qual o cliente irá se conectar. \texttt{Tipo: str}).  O método retorna um objeto do \texttt{tipo: protocol.Client}.
             \item \textbf{Client.connect():} Esse método é responsável por criar uma conexão entre o cliente em questão e o (socket do) servidor. O método não possui nenhum parâmetro e não retorna nada.
-            \item \textbf{Client.sendMessage(message):} Esse método é responsável por enviar uma mensagem do cliente para o servidor. O método possui um único parâmetro: \underline{message} (A mensagem que será enviada do cliente para o socket do servidor. \texttt{Tipo: bytes}). O método não retorna nada.
+            \item \textbf{Client.sendMessage(message):} Esse método é responsável por enviar uma mensagem do cliente para o servidor. O método possui um único parâmetro: \underline{message} (A mensagem que será enviada do cliente para o servidor. \texttt{Tipo: bytes}). O método não retorna nada.
             \end{itemize}
         
     \subsection{\Large Protocol}
         \subsubsection{\large Objetivo}
             \begin{itemize}
-            \item A classe tem como objetivo implementar, de forma sequencial e modularizada, as etapas do protocolo descritas na entrega anterior (etapa de Handshake, etapa de geração de chave simétrica e etapa de sessão de votação). Para isso, como será explicado adiante, existe uma divisão entre as atividades executadas pelo cliente em todas as etapas e as atividades executadas pelo servidor em todas as etapas.
+            \item A classe tem como objetivo implementar, de forma sequencial e modularizada, as etapas do protocolo descritas na entrega anterior (etapa de "Handshake", etapa de geração de chave simétrica e etapa de sessão de votação). Para isso, como será explicado adiante, existe uma divisão entre as atividades executadas pelo cliente em todas as etapas e as atividades executadas pelo servidor em todas as etapas.
             \end{itemize}
         \subsubsection{\large Atributos}
             \begin{itemize}
@@ -155,9 +155,9 @@ Zilde Souto Maior Neto (zsmn)
         \subsubsection{\large Métodos}
             \begin{itemize}
              \item \textbf{Protocol():} Esse método é o construtor da classe. O método não possui nenhum parâmetro. O método retorna um objeto do \texttt{tipo: protocol.Protocol}.
-             \item \textbf{Protocol.generateRandomKey():} Esse método é responsável pela geração, de forma aleatória, da chave simétrica que será compartilhada na conexão cliente-servidor. O método não possui nenhum parâmetro e retorna um objeto do \texttt{tipo: bytes}.
-             \item \textbf{Protocol.clientProcedure(client, serverPublicKey):} Esse método é responsável por executar, de forma sequencial, todas as atividades atribuídas ao cliente nas etapas do protocolo definidas anteriormente. Ou seja, o método executa as funções do cliente nas etapas de: handshake, geração de chave simétrica e sessão de votação, respectivamente. O método possui como parâmetros: \underline{client} (O cliente que está interagindo/conectado com o servidor. \texttt{Tipo: protocol.Client}) e \underline{serverPublicKey} (A chave pública do servidor, que é assumida ser de conhecimento geral. \texttt{tipo: Crypto.PublicKey.RSA.RsaKey}). O método não retorna nada.
-             \item \textbf{Protocol.serverProcedure(server, clientSocket, clientAddress):} Esse método é responsável por executar, de forma sequencial, todas as atividades atribuídas ao servidor nas etapas do protocolo definidas anteriormente. Ou seja, o método executa as funções do servidor nas etapas de: handshake, geração de chave simétrica e sessão de votação, respectivamente. O método possui como parâmetros: \underline{server} (O servidor que está executando o seu procedimento no protocolo. \texttt{Tipo: protocol.Server}), \underline{clientSocket} (O socket do cliente com o qual o servidor em questão está conectado. \texttt{Tipo: socket.socket}) e \underline{clientAddress} (Uma tupla contendo o endereço IP do cliente e o número de porta utilizado pelo socket desse mesmo cliente ao qual o servidor está conectado. \texttt{Tipo: tuple}). O método não retorna nada.
+             \item \textbf{Protocol.generateRandomKey():} Esse método é responsável pela geração, de forma aleatória, da chave simétrica que será compartilhada na conexão individual cliente-servidor. O método não possui nenhum parâmetro e retorna um objeto do \texttt{tipo: bytes}.
+             \item \textbf{Protocol.clientProcedure(client, serverPublicKey):} Esse método é responsável por executar, de forma sequencial, todas as atividades atribuídas ao cliente nas etapas do protocolo definidas anteriormente. Ou seja, o método executa as funções do cliente nas etapas de: "Handshake", geração de chave simétrica e sessão de votação, respectivamente. O método possui como parâmetros: \underline{client} (O cliente que está interagindo/conectado com o servidor. \texttt{Tipo: protocol.Client}) e \underline{serverPublicKey} (A chave pública do servidor, que é assumida ser de conhecimento geral. \texttt{tipo: Crypto.PublicKey.RSA.RsaKey}). O método não retorna nada.
+             \item \textbf{Protocol.serverProcedure(server, clientSocket, clientAddress):} Esse método é responsável por executar, de forma sequencial, todas as atividades atribuídas ao servidor nas etapas do protocolo definidas anteriormente. Ou seja, o método executa as funções do servidor nas etapas de: "Handshake", geração de chave simétrica e sessão de votação, respectivamente. O método possui como parâmetros: \underline{server} (O servidor que está executando o seu procedimento no protocolo. \texttt{Tipo: protocol.Server}), \underline{clientSocket} (O socket do cliente com o qual o servidor em questão está conectado. \texttt{Tipo: socket.socket}) e \underline{clientAddress} (Uma tupla contendo o endereço IP do cliente e o número de porta utilizado pelo socket desse mesmo cliente ao qual o servidor está conectado. \texttt{Tipo: tuple}). O método não retorna nada.
             \end{itemize}
     \end{itemize}
 \end{document}
