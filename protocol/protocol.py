@@ -43,7 +43,7 @@ class Socket:
         self.publicKey = self.privateKey.publickey()
 
     def encryptMessage(self, message, key, encryptType = 'asymmetric'):
-        if(encryptType == 'assymetric'):
+        if(encryptType == 'asymmetric'):
             encryptor = PKCS1_OAEP.new(key)
             return encryptor.encrypt(message)
         else:
@@ -52,8 +52,8 @@ class Socket:
             iv = b64encode(encryptor.iv).decode('utf-8')
             return {'cipher': cipher, 'iv': iv}
 
-    def decryptMessage(self, message, key, encryptType = 'assymetric', iv = ''):
-        if(encryptType == 'assymetric'):
+    def decryptMessage(self, message, key, encryptType = 'asymmetric', iv = ''):
+        if(encryptType == 'asymmetric'):
             decryptor = PKCS1_OAEP.new(key)
             return decryptor.decrypt(ast.literal_eval(str(message)))
         else:
